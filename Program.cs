@@ -1,29 +1,50 @@
-﻿using System;
-using System.IO;
+﻿
+using System;
 
-class Program
+class Complex
+{
+    double real;
+    double imag;
+
+    public Complex(double r, double i)
+    {
+        real = r;
+        imag = i;
+    }
+
+    public Complex Add(Complex other)
+    {
+        return new Complex(real + other.real, imag + other.imag);
+    }
+
+    public void show()
+    {
+        Console.WriteLine(real + " + " + imag + " i ");
+    }
+
+    public static Complex ReadComplex()
+    {
+        Console.WriteLine("Enter the real part: ");
+        double r = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Enter the imaginary part: ");
+        double i = Convert.ToInt32(Console.ReadLine());
+        return new Complex(r, i);
+    }
+}
+
+class program
 {
     static void Main()
     {
-        Console.Write("Enter source file path: ");
-        string sourcePath = Console.ReadLine();
+        Console.WriteLine("Enter the first complex number: ");
+        Complex c1 = Complex.ReadComplex();
 
-        Console.Write("Enter destination file path: ");
-        string destPath = Console.ReadLine();
+        Console.WriteLine("Enter the second complex number: ");
+        Complex c2 = Complex.ReadComplex();
 
-        try
-        {
-            // Read all text from source file
-            string content = File.ReadAllText(sourcePath);
+        Complex sum = c1.Add(c2);
 
-            // Write content to destination file
-            File.WriteAllText(destPath, content);
-
-            Console.WriteLine("File copied successfully!");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error: " + ex.Message);
-        }
+        Console.WriteLine("sum= ");
+        sum.show();
     }
 }
